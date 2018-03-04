@@ -10,7 +10,7 @@ separator = ","
 batch_size = 8
 n = 4
 hiddens = [n]
-biases = [0.1, 0.1] #biases vector should have size len(hiddens) + 1 (last layer is predictive)
+biases = [0.0, 0.0] #biases vector should have size len(hiddens) + 1 (last layer is predictive)
 is_oversampling_enabled = True
 is_polynomial_features_enabled = False
 
@@ -21,7 +21,7 @@ is_polynomial_features_enabled = False
 # batch_size = 8
 # n = 4
 # hiddens = [n]
-# biases = [0.1, 0.1]
+# biases = [0.0, 0.0]
 # is_oversampling_enabled = True
 # is_polynomial_features_enabled = True
 
@@ -32,7 +32,7 @@ is_polynomial_features_enabled = False
 # batch_size = 4
 # n = 4
 # hiddens = [n, n]
-# biases = [0.1, 0.1, 0.1]
+# biases = [0.0, 0.0, 0.0]
 # is_oversampling_enabled = False #The feature is disabled because there are too few samples of the minority class
 # is_polynomial_features_enabled = False
 
@@ -43,7 +43,7 @@ is_polynomial_features_enabled = False
 # batch_size = 8
 # n = 4
 # hiddens = [n, n]
-# biases = [0.1, 0.1, 0.1]
+# biases = [0.0, 0.0, 0.0]
 # is_oversampling_enabled = True
 # is_polynomial_features_enabled = True
 
