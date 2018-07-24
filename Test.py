@@ -3,7 +3,7 @@ from NeuralNetwork import learn_neural_network
 from Tools import plot_loss
 from NeuralNetwork import predict_output
 
-name_of_file = "diabetes.csv"
+name_of_file = "./Data/diabetes.csv"
 is_header_present = True
 name_or_number_of_target_column = "class"
 separator = ","
@@ -14,7 +14,7 @@ biases = [0.0, 0.0] #biases vector should have size len(hiddens) + 1 (last layer
 is_oversampling_enabled = True
 is_polynomial_features_enabled = False
 
-# name_of_file = "iris.data"
+# name_of_file = "./Data/iris.data"
 # is_header_present = False
 # name_or_number_of_target_column = 5
 # separator = ","
@@ -25,7 +25,7 @@ is_polynomial_features_enabled = False
 # is_oversampling_enabled = True
 # is_polynomial_features_enabled = True
 
-# name_of_file = "LungCancer_25.csv"
+# name_of_file = "./Data/LungCancer_25.csv"
 # is_header_present = False
 # name_or_number_of_target_column = 1
 # separator = ";"
@@ -36,7 +36,7 @@ is_polynomial_features_enabled = False
 # is_oversampling_enabled = False #The feature is disabled because there are too few samples of the minority class
 # is_polynomial_features_enabled = False
 
-# name_of_file = "reprocessed.hungarian.data"
+# name_of_file = "./Data/reprocessed.hungarian.data"
 # is_header_present = False
 # name_or_number_of_target_column = 14
 # separator = " "
