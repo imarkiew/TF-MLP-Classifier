@@ -4,12 +4,12 @@ from imblearn.over_sampling import SMOTE
 from sklearn.utils import shuffle
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler
 import numpy as np
 from matplotlib import pyplot as plt
 
-def prepare_data(name_of_file, is_header_present, name_or_number_of_target_column,
-                 separator, percent_of_test_examples, is_oversampling_enabled, is_polynomial_features_enabled,
-                 polynomial_features_degree):
+def prepare_data(name_of_file, is_header_present, name_or_number_of_target_column, separator, percent_of_test_examples,
+                 is_oversampling_enabled, polynomial_features_degree):
     if is_header_present:
         df = pd.read_csv(name_of_file, sep=separator)
         y = df[name_or_number_of_target_column].values
@@ -20,9 +20,9 @@ def prepare_data(name_of_file, is_header_present, name_or_number_of_target_colum
         y = df[y_classification].values
         df = df.drop(y_classification, axis=1)
     df = df.fillna(value=df.mean())
-    df_norm = (df - df.min()) / (df.max() - df.min())
-    X = df_norm.values
-    if is_polynomial_features_enabled:
+    scaler = StandardScaler()
+    X = scaler.fit_transform(df)
+    if polynomial_features_degree is not None:
         polynomial = PolynomialFeatures(polynomial_features_degree)
         X = polynomial.fit_transform(X)
     num_of_labels = len(find_outpu(y))
@@ -56,7 +56,7 @@ def find_labels(y):
 def decode_one_hot(y):
     return [i for element in y for i, yy in enumerate(element) if yy == 1]
 
-def plot_loss(losses, is_plot_saved, name_of_plot):
+def plot_loss(losses, is_plot_saved, path):
     epochs = range(1, len(losses[0]) + 1)
     fig = plt.figure()
     ax = plt.subplot()
@@ -66,5 +66,5 @@ def plot_loss(losses, is_plot_saved, name_of_plot):
     plt.ylabel('average loss', fontsize=15)
     ax.legend()
     if is_plot_saved:
-        fig.savefig(name_of_plot, bbox_inches='tight')
+        fig.savefig(path, bbox_inches='tight')
     plt.show()

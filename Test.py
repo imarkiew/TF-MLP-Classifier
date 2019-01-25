@@ -3,73 +3,90 @@ from NeuralNetwork import learn_neural_network
 from Tools import plot_loss
 from NeuralNetwork import predict_output
 
-name_of_file = "diabetes.csv"
+file_path = "./data/diabetes.csv"
 is_header_present = True
 name_or_number_of_target_column = "class"
 separator = ","
-batch_size = 8
+batch_size = 4
 n = 4
-hiddens = [n]
-biases = [0.0, 0.0] #biases vector should have size len(hiddens) + 1 (last layer is predictive)
+hidden = [n]
+biases = [0.0, 0.0] #biases vector should have size len(hidden) + 1 (last layer is before softmax and has a size num_of_classes)
 is_oversampling_enabled = True
-is_polynomial_features_enabled = False
+percent_of_test_examples = 0.3
+polynomial_features_degree = None
+learning_rate = 0.001
+dropout_prob = 0.5
+number_of_epochs = 200
+type_of_f1_score = "macro"
+is_model_saved = True
+model_path = "./models/model"
 
-# name_of_file = "iris.data"
+# file_path = "./data/iris.data"
 # is_header_present = False
 # name_or_number_of_target_column = 5
 # separator = ","
-# batch_size = 8
-# n = 4
-# hiddens = [n]
-# biases = [0.0, 0.0]
+# batch_size = 4
+# n = 2
+# hidden = [n]
+# biases = [0.0, 0.0] #biases vector should have size len(hidden) + 1 (last layer is before softmax and has a size num_of_classes)
 # is_oversampling_enabled = True
-# is_polynomial_features_enabled = True
+# percent_of_test_examples = 0.3
+# polynomial_features_degree = None
+# learning_rate = 0.001
+# dropout_prob = 0.5
+# number_of_epochs = 200
+# type_of_f1_score = "macro"
+# is_model_saved = True
+# model_path = "./models/model"
 
-# name_of_file = "LungCancer_25.csv"
+# file_path = "./data/LungCancer_25.csv"
 # is_header_present = False
 # name_or_number_of_target_column = 1
 # separator = ";"
 # batch_size = 4
 # n = 4
-# hiddens = [n, n]
-# biases = [0.0, 0.0, 0.0]
-# is_oversampling_enabled = False #The feature is disabled because there are too few samples of the minority class
-# is_polynomial_features_enabled = False
+# hidden = [n]
+# biases = [0.0, 0.0] #biases vector should have size len(hidden) + 1 (last layer is before softmax and has a size num_of_classes)
+# is_oversampling_enabled = False
+# percent_of_test_examples = 0.3
+# polynomial_features_degree = None
+# learning_rate = 0.001
+# dropout_prob = 0.5
+# number_of_epochs = 200
+# type_of_f1_score = "macro"
+# is_model_saved = True
+# model_path = "./models/model"
 
-# name_of_file = "reprocessed.hungarian.data"
+# file_path = "./data/reprocessed.hungarian.data"
 # is_header_present = False
 # name_or_number_of_target_column = 14
 # separator = " "
-# batch_size = 8
+# batch_size = 4
 # n = 4
-# hiddens = [n, n]
-# biases = [0.0, 0.0, 0.0]
+# hidden = [n]
+# biases = [0.0, 0.0] #biases vector should have size len(hidden) + 1 (last layer is before softmax and has a size num_of_classes)
 # is_oversampling_enabled = True
-# is_polynomial_features_enabled = True
+# percent_of_test_examples = 0.3
+# polynomial_features_degree = None
+# learning_rate = 0.001
+# dropout_prob = 0.5
+# number_of_epochs = 200
+# type_of_f1_score = "macro"
+# is_model_saved = True
+# model_path = "./models/model"
 
-percent_of_test_examples = 0.3
-polynomial_features_degree = 2
-learning_rate = 0.001
-dropout_prob = 0.5
-number_of_epochs = 300
-type_of_f1_score = "macro"
-is_model_saved = True
-name_of_model = "model"
-
-Xx, Xt, yy, yt, enc = prepare_data(name_of_file, is_header_present, name_or_number_of_target_column,
-                 separator, percent_of_test_examples, is_oversampling_enabled, is_polynomial_features_enabled,
+Xx, Xt, yy, yt, enc = prepare_data(file_path, is_header_present, name_or_number_of_target_column,
+                 separator, percent_of_test_examples, is_oversampling_enabled,
                  polynomial_features_degree)
 
-losses = learn_neural_network(Xx, yy, Xt, yt, learning_rate, dropout_prob, biases, hiddens, batch_size, number_of_epochs,
-                              enc, type_of_f1_score, is_model_saved, name_of_model)
-plot_loss(losses, True, "losses.png")
+losses = learn_neural_network(Xx, yy, Xt, yt, learning_rate, dropout_prob, biases, hidden, batch_size, number_of_epochs,
+                              enc, type_of_f1_score, is_model_saved, model_path)
+plot_loss(losses, True, "./models/losses.png")
 
-#restore model and check predicted output for all examples in set
-# x, y, y_one_hot, enc = prepare_data(name_of_file, is_header_present, name_or_number_of_target_column,
-#                  separator, 0, False, is_polynomial_features_enabled,
-#                  polynomial_features_degree)
-# model_path = "model.meta"
-# check_point_path = "./"
-# print(predict_output(x, model_path, check_point_path, enc))
+# restore model and check predicted output for all examples in set
+# x, y, y_one_hot, enc = prepare_data(file_path, is_header_present, name_or_number_of_target_column,
+#                  separator, 0, False, polynomial_features_degree)
+# path_to_model = "./models/model.meta"
+# check_point_path = "./models/"
+# print(predict_output(x, path_to_model, check_point_path, enc))
 # print(y)
-
